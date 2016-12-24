@@ -1,0 +1,14 @@
+yes:
+	- yes
+	- y
+	- yup
+	- sure
+	- true
+
+no:
+	- no
+	- n
+	- nah
+	- nope
+	- nop
+	- false

@@ -1,17 +1,24 @@
 package me.FrejNielsen.YAC;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 public class YAC {
 	
 	private FileUtils fUtils;
 	
+	protected static ArrayList<String> yes = new ArrayList<>();
+	protected static ArrayList<String> no = new ArrayList<>();
+	
 	public static void main(String[] args) throws ParseException, InterruptedException, IOException {
+		readAnswers();
 		if(args.length == 0) {
 			new AlarmUtils();
 		} else
@@ -33,5 +40,32 @@ public class YAC {
 			}
 			System.exit(0);
 		}
+	}
+	
+	private static void readAnswers() throws IOException {
+		FileReader r = new FileReader("resources/answers.txt");
+		BufferedReader br = new BufferedReader(r);
+		
+		String currentAnswer = "";
+		String line;
+		while((line = br.readLine()) != null) {
+			if(!line.trim().startsWith("-")) {
+				if(line.startsWith("yes"))
+					currentAnswer = "yes";
+				else if(line.startsWith("no")) {
+					currentAnswer = "no";
+				}
+			} else {
+				String word = line.trim().substring(2);
+				if(currentAnswer.equals("yes")) {
+					yes.add(word);
+					//System.out.println("Added " + word + " as a valid alternative to yes");
+				} else if(currentAnswer.equals("no")) {
+					no.add(word);
+					//System.out.println("Added " + word + " as a valid alternative to no");
+				}
+			}
+		}
+		br.close();
 	}
 }

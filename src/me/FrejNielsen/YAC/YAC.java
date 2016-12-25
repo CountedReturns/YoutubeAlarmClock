@@ -12,13 +12,14 @@ import java.util.ArrayList;
 
 public class YAC {
 	
-	private FileUtils fUtils;
+	public static FileUtils fUtils;
 	
 	protected static ArrayList<String> yes = new ArrayList<>();
 	protected static ArrayList<String> no = new ArrayList<>();
 	
 	public static void main(String[] args) throws ParseException, InterruptedException, IOException {
 		readAnswers();
+		fUtils = new FileUtils();
 		if(args.length == 0) {
 			new AlarmUtils();
 		} else

@@ -2,7 +2,9 @@ package me.FrejNielsen.YAC;
 
 import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URI;
@@ -38,7 +40,45 @@ public class FileUtils {
 			}
 		}
 	}
-
+	
+	public void addLink(String link) throws IOException {
+		if(links.contains(link)) {
+			System.err.println("Link is already added.");
+			return;
+		}
+			
+		links.add(link);
+		
+		FileWriter w = new FileWriter("resources/ytvids.txt");
+		BufferedWriter bw = new BufferedWriter(w);
+		
+		for(int i = 0; i < links.size(); i++) {
+			if(i == 0) bw.write(links.get(i));
+			else bw.write("\n" + links.get(i));
+		}
+		bw.close();
+		System.out.println("Successfully added link to list of videos.");
+	}
+	
+	public void removeLink(String link) throws IOException {
+		if(!links.contains(link)) {
+			System.err.println("Link is not added.");
+			return;
+		}
+			
+		links.remove(link);
+		
+		FileWriter w = new FileWriter("resources/ytvids.txt");
+		BufferedWriter bw = new BufferedWriter(w);
+		
+		for(int i = 0; i < links.size(); i++) {
+			if(i == 0) bw.write(links.get(i));
+			else bw.write("\n" + links.get(i));
+		}
+		bw.close();
+		System.out.println("Successfully removed link to list of videos.");
+	}
+	
 	public ArrayList<String> getLinks() {
 		return links;
 	}

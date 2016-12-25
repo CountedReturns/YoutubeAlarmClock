@@ -44,15 +44,15 @@ public class AlarmUtils implements Runnable {
 		while (running) {
 			if (sc.hasNextLine()) {
 				String cmd = sc.nextLine();
-				if (cmd.startsWith("set")) {
+				if (cmd.toLowerCase().startsWith("set")) {
 					String[] arr = cmd.split(" ");
 
 					switch (arr.length) {
 					case 1:
-						System.err.println("Usage: set <name> <dd/mm/yyyy hh:mm:ss>.");
+						System.err.println("Usage: set <name> <dd/MM/yyyy hh:mm:ss>.");
 						break;
 					case 2:
-						System.err.println("Usage: set <name> <dd/mm/yyyy hh:mm:ss>.");
+						System.err.println("Usage: set <name> <dd/MM/yyyy hh:mm:ss>.");
 						break;
 					case 3:
 						createAlarm(0, arr[1], arr[2]);
@@ -66,8 +66,44 @@ public class AlarmUtils implements Runnable {
 						String enabled = alarm.isEnabled() ? "Enabled" : "Not enabled";
 						System.out.println(alarm.getName() + " - " + alarm.getTime() + " - " + enabled);
 					}
+				} else if (cmd.toLowerCase().startsWith("addlink")) {
+					String[] arr = cmd.split(" ");
+					
+					switch(arr.length) {
+					case 1:
+						System.err.println("Usage: addlink <link>.");
+						break;
+					case 2:
+						try {
+							YAC.fUtils.addLink(arr[1]);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						break;
+					default:
+						System.err.println("Usage: addlink <link>.");
+						break;
+					}
+				}  else if (cmd.toLowerCase().startsWith("removelink")) {
+					String[] arr = cmd.split(" ");
+					
+					switch(arr.length) {
+					case 1:
+						System.err.println("Usage: removelink <link>.");
+						break;
+					case 2:
+						try {
+							YAC.fUtils.removeLink(arr[1]);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						break;
+					default:
+						System.err.println("Usage: removelink <link>.");
+						break;
+					}
 				} else {
-					System.err.println("Unknown argument! Only valid arguments are set and list!");
+					System.err.println("Unknown command! Only valid commands are set, list, addlink and removelink!");
 				}
 			}
 		}

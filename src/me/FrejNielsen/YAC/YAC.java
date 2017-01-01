@@ -44,7 +44,7 @@ public class YAC {
 	}
 	
 	private static void readAnswers() throws IOException {
-		FileReader r = new FileReader(fUtils.getFile("answers.txt"));
+		FileReader r = new FileReader(fUtils.getFile("/answers.txt"));
 		BufferedReader br = new BufferedReader(r);
 		
 		String currentAnswer = "";

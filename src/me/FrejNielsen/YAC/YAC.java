@@ -18,8 +18,8 @@ public class YAC {
 	protected static ArrayList<String> no = new ArrayList<>();
 	
 	public static void main(String[] args) throws ParseException, InterruptedException, IOException {
-		readAnswers();
 		fUtils = new FileUtils();
+		readAnswers();
 		if(args.length == 0) {
 			new AlarmUtils();
 		} else

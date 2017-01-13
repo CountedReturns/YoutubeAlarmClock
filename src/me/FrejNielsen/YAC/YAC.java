@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.text.ParseException;
@@ -19,15 +18,16 @@ public class YAC {
 	
 	public static void main(String[] args) throws ParseException, InterruptedException, IOException {
 		fUtils = new FileUtils();
-		readAnswers();
 		if(args.length == 0) {
 			new AlarmUtils();
+			new YAC(null);
 		} else
 			new YAC(args);
 	}
 	
 	@SuppressWarnings("resource")
 	public YAC(String[] args) throws IOException, ParseException, InterruptedException {
+		if(args == null) {readAnswers(); return;}
 		if(args[0] == "--file") {
 			FileChannel src = null;
 			FileChannel dest = null;
@@ -43,9 +43,8 @@ public class YAC {
 		}
 	}
 	
-	private static void readAnswers() throws IOException {
-		FileReader r = new FileReader(fUtils.getFile("/answers.txt"));
-		BufferedReader br = new BufferedReader(r);
+	private void readAnswers() throws IOException {
+		BufferedReader br = new BufferedReader(fUtils.getStreamReader("answers.txt"));
 		
 		String currentAnswer = "";
 		String line;

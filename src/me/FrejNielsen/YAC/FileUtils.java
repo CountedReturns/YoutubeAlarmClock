@@ -30,6 +30,10 @@ public class FileUtils {
 		return file;
 	}
 	
+	public InputStreamReader getStreamReader(String fileName) {
+		return new InputStreamReader(getClass().getResourceAsStream("/answers.txt"));
+	}
+	
 	public void openWebpage(URI uri) {
 		Desktop desktop = Desktop.isDesktopSupported() ? Desktop.getDesktop() : null;
 		if (desktop != null && desktop.isSupported(Desktop.Action.BROWSE)) {
